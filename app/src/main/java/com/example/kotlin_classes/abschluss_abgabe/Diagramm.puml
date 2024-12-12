@@ -1,0 +1,62 @@
+@startuml
+package com.example.kotlin_classes.abschluss_abgabe{
+Class Book{
+    val title: String
+    val author: String
+    val genre: Genre
+    var status: BookStatus
+}
+ class BookStatus {
+  object Available
+  data class CheckedOut(dueDate: String)
+  data class Reserved(reservedBy: String)
+  + printStatus()
+}
+
+enum Genre {
+  FICTION
+  NON_FICTION
+  SCIENCE
+  HISTORY
+  CHILDREN
+  - description: String
+  + printDescription()
+}
+
+class Library {
+  - books: MutableList<Book>
+  + addBook(book: Book)
+  + searchBook(query: String): List<Book>
+  + printBookStatus()
+
+
+
+
+}
+
+class LibraryAddress {
+  - street: String
+  - city: String
+  - zipCode: String
+  + printAddress()
+}
+class LibraryMember {
+  - name: String
+  - memberID: Int
+  + checkoutBook(book: Book, dueDate: String)
+  + reserveBook(book: Book)
+}
+
+
+}
+
+Book --> Genre : uses
+Book --> BookStatus : uses
+Library o-- Book : contains
+Library -- LibraryAddress : has-a
+Library +-- LibraryMember : contains
+
+
+
+
+@enduml
